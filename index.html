@@ -1,1 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organigrama Subsecretaría</title>
 
+  <style>
+    :root{
+      --bg:#2f3192;
+      --white:#f5f5f5;
+      --line:#ffffff;
+      --cyan:#22c7f4;
+      --text-dark:#2f3192;
+      --shadow:0 10px 24px rgba(0,0,0,.15);
+      --radius:6px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:#eef2f7;
+      color:#111;
+    }
+
+    .page{
+      width:100%;
+      padding:24px;
+    }
+
+    .org-wrapper{
+      max-width:1600px;
+      margin:0 auto;
+      background:var(--bg);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 12px 35px rgba(15,23,42,.15);
+    }
+
+    .org-header-bar{
+      width:100%;
+      height:18px;
+      position:relative;
+      background:transparent;
+    }
+
+    .org-header-bar::before,
+    .org-header-bar::after{
+      content:"";
+      position:absolute;
+      top:0;
+      height:18px;
+      width:170px;
+    }
+
+    .org-header-bar::before{
+      left:50%;
+      transform:translateX(-100%);
+      background:#1fa7e4;
+    }
+
+    .org-header-bar::after{
+      left:50%;
+      background:#ef1838;
+    }
+
+    .board{
+      position:relative;
+      width:100%;
+      aspect-ratio:1600 / 920;
+      background:var(--bg);
+    }
+
+    .board svg.lines{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .section-title{
+      position:absolute;
+      z-index:3;
+      color:#fff;
+      font-weight:700;
+      font-size:26px;
+      line-height:1.1;
+      text-align:center;
+    }
+
+    .node{
+      position:absolute;
+      z-index:4;
+      border:none;
+      border-radius:0;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      padding:12px 10px;
+      text-align:center;
+      font-weight:700;
+      line-height:1.08;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .node:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.02);
+    }
+
+    .node.active{
+      outline:4px solid rgba(255,255,255,.75);
+      transform:translateY(-2px) scale(1.01);
+    }
+
+    .node.white{
+      background:var(--white);
+      color:var(--text-dark);
+    }
+
+    .node.cyan{
+      background:var(--cyan);
+      color:var(--text-dark);
+      box-shadow:none;
+      font-weight:400;
+    }
+
+    .node.big{
+      font-size:26px;
+      font-weight:800;
+      letter-spacing:.3px;
+    }
+
+    .node.main{
+      font-size:18px;
+    }
+
+    .node.small{
+      font-size:12px;
+      line-height:1.1;
+      padding:10px 8px;
+    }
+
+    .footer-band{
+      background:#16b9e5;
+      color:#2f3192;
+      padding:16px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      font-weight:800;
+      font-size:26px;
+      letter-spacing:.4px;
+      position:relative;
+    }
+
+    .footer-center{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      width:240px;
+      height:22px;
+    }
+
+    .footer-center::before,
+    .footer-center::after{
+      content:"";
+      position:absolute;
+      top:0;
+      width:120px;
+      height:22px;
+      border-radius:0 0 18px 18px;
+    }
+
+    .footer-center::before{
+      left:0;
+      background:linear-gradient(90deg, rgba(47,49,146,0) 0%, #24bde7 55%, #ffffff 75%, #ef1838 100%);
+      filter:blur(.2px);
+    }
+
+    .footer-center::after{
+      right:0;
+      background:linear-gradient(90deg, #ffffff 0%, #ef1838 30%, #ef1838 70%, rgba(47,49,146,0) 100%);
+      opacity:.85;
+    }
+
+    .info-panel{
+      max-width:1600px;
+      margin:24px auto 0;
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 10px 28px rgba(15,23,42,.08);
+      padding:26px;
+    }
+
+    .info-panel h2{
+      margin:0 0 12px 0;
+      font-size:28px;
+      color:#1e2a78;
+    }
+
+    .info-panel .type{
+      display:inline-block;
+      margin-bottom:14px;
+      background:#e9f8fe;
+      color:#147da2;
+      font-weight:700;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .info-panel p{
+      margin:0;
+      font-size:17px;
+      line-height:1.6;
+      color:#334155;
+    }
+
+    @media (max-width: 1200px){
+      .page{
+        padding:12px;
+      }
+
+      .info-panel h2{
+        font-size:22px;
+      }
+
+      .info-panel p{
+        font-size:15px;
+      }
+    }
+
+    @media (max-width: 900px){
+      .org-wrapper{
+        overflow-x:auto;
+      }
+
+      .board{
+        min-width:1600px;
+      }
+
+      .footer-band{
+        min-width:1600px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="org-wrapper">
+      <div class="org-header-bar"></div>
+
+      <div class="board">
+
+        <!-- TÍTULOS -->
+        <div class="section-title" style="left:390px; top:90px;">Áreas de Control</div>
+        <div class="section-title" style="left:1000px; top:90px;">Áreas de Asesoría</div>
+        <div class="section-title" style="left:130px; top:445px;">Áreas de Negocio</div>
+        <div class="section-title" style="left:1180px; top:445px;">Áreas de Soporte</div>
+
+        <!-- LÍNEAS -->
+        <svg class="lines" viewBox="0 0 1600 920" preserveAspectRatio="none" aria-hidden="true">
+          <!-- superior -->
+          <line x1="800" y1="120" x2="800" y2="220" stroke="#fff" stroke-width="4"/>
+          <line x1="800" y1="235" x2="800" y2="330" stroke="#fff" stroke-width="4"/>
+
+          <!-- control -->
+          <line x1="620" y1="170" x2="620" y2="100" stroke="#fff" stroke-width="4"/>
+          <line x1="620" y1="100" x2="650" y2="100" stroke="#fff" stroke-width="4"/>
+          <line x1="620" y1="180" x2="565" y2="180" stroke="#fff" stroke-width="4"/>
+          <line x1="565" y1="180" x2="565" y2="280" stroke="#fff" stroke-width="4"/>
+          <line x1="565" y1="280" x2="300" y2="280" stroke="#fff" stroke-width="4"/>
+          <line x1="565" y1="240" x2="710" y2="240" stroke="#fff" stroke-width="4"/>
+
+          <!-- asesoría -->
+          <line x1="910" y1="245" x2="1015" y2="245" stroke="#fff" stroke-width="4"/>
+          <line x1="1015" y1="195" x2="1015" y2="315" stroke="#fff" stroke-width="4"/>
+          <line x1="1015" y1="195" x2="1055" y2="195" stroke="#fff" stroke-width="4"/>
+          <line x1="1015" y1="245" x2="1055" y2="245" stroke="#fff" stroke-width="4"/>
+          <line x1="1015" y1="305" x2="1055" y2="305" stroke="#fff" stroke-width="4"/>
+
+          <!-- bajada al bloque inferior -->
+          <line x1="800" y1="330" x2="800" y2="505" stroke="#fff" stroke-width="4"/>
+          <line x1="120" y1="505" x2="1365" y2="505" stroke="#fff" stroke-width="4"/>
+
+          <!-- postes superiores de direcciones -->
+          <line x1="235" y1="505" x2="235" y2="540" stroke="#fff" stroke-width="4"/>
+          <line x1="430" y1="505" x2="430" y2="540" stroke="#fff" stroke-width="4"/>
+          <line x1="610" y1="505" x2="610" y2="540" stroke="#fff" stroke-width="4"/>
+          <line x1="795" y1="505" x2="795" y2="540" stroke="#fff" stroke-width="4"/>
+          <line x1="1090" y1="505" x2="1090" y2="540" stroke="#fff" stroke-width="4"/>
+          <line x1="1370" y1="505" x2="1370" y2="540" stroke="#fff" stroke-width="4"/>
+
+          <!-- dirección educación previsional -->
+          <line x1="40" y1="625" x2="40" y2="760" stroke="#fff" stroke-width="4"/>
+          <line x1="40" y1="705" x2="70" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="40" y1="760" x2="70" y2="760" stroke="#fff" stroke-width="4"/>
+
+          <!-- estudios previsionales -->
+          <line x1="235" y1="625" x2="235" y2="760" stroke="#fff" stroke-width="4"/>
+          <line x1="235" y1="705" x2="265" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="235" y1="760" x2="265" y2="760" stroke="#fff" stroke-width="4"/>
+
+          <!-- coordinación institucional -->
+          <line x1="430" y1="625" x2="430" y2="760" stroke="#fff" stroke-width="4"/>
+          <line x1="430" y1="705" x2="460" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="430" y1="760" x2="460" y2="760" stroke="#fff" stroke-width="4"/>
+
+          <!-- asesoría legislativa -->
+          <line x1="610" y1="625" x2="610" y2="760" stroke="#fff" stroke-width="4"/>
+          <line x1="610" y1="705" x2="640" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="610" y1="760" x2="640" y2="760" stroke="#fff" stroke-width="4"/>
+
+          <!-- administración y finanzas -->
+          <line x1="1090" y1="625" x2="1090" y2="660" stroke="#fff" stroke-width="4"/>
+          <line x1="860" y1="660" x2="1260" y2="660" stroke="#fff" stroke-width="4"/>
+          <line x1="880" y1="660" x2="880" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="1030" y1="660" x2="1030" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="1165" y1="660" x2="1165" y2="705" stroke="#fff" stroke-width="4"/>
+          <line x1="1305" y1="660" x2="1305" y2="705" stroke="#fff" stroke-width="4"/>
+
+          <!-- subunidad presupuesto -->
+          <line x1="880" y1="760" x2="880" y2="855" stroke="#fff" stroke-width="4"/>
+          <line x1="880" y1="760" x2="920" y2="760" stroke="#fff" stroke-width="4"/>
+          <line x1="880" y1="855" x2="920" y2="855" stroke="#fff" stroke-width="4"/>
+
+          <!-- oficina de partes -->
+          <line x1="1165" y1="760" x2="1165" y2="815" stroke="#fff" stroke-width="4"/>
+          <line x1="1165" y1="815" x2="1185" y2="815" stroke="#fff" stroke-width="4"/>
+
+          <!-- TI -->
+          <line x1="1370" y1="625" x2="1370" y2="800" stroke="#fff" stroke-width="4"/>
+          <line x1="1370" y1="715" x2="1400" y2="715" stroke="#fff" stroke-width="4"/>
+          <line x1="1370" y1="770" x2="1400" y2="770" stroke="#fff" stroke-width="4"/>
+          <line x1="1370" y1="825" x2="1400" y2="825" stroke="#fff" stroke-width="4"/>
+        </svg>
+
+        <!-- NODOS -->
+        <button class="node white big active"
+          style="left:655px; top:62px; width:260px; height:74px;"
+          data-type="Autoridad superior"
+          data-title="SUBSECRETARIO/A"
+          data-info="Cargo superior de la estructura institucional. Desde aquí se articula la conducción estratégica, el relacionamiento interno y la coordinación general de las áreas de control, asesoría, negocio y soporte.">
+          SUBSECRETARIO/A
+        </button>
+
+        <button class="node white main"
+          style="left:400px; top:150px; width:165px; height:58px;"
+          data-type="Área de control"
+          data-title="Auditoría Interna"
+          data-info="Unidad encargada de revisar, evaluar y fortalecer los procesos de control interno, gestión de riesgos y cumplimiento institucional.">
+          Auditoría<br>Interna
+        </button>
+
+        <button class="node white main"
+          style="left:400px; top:230px; width:165px; height:58px;"
+          data-type="Área de control"
+          data-title="División Fiscalía"
+          data-info="Unidad responsable del análisis jurídico, apoyo normativo, revisión de actos administrativos y asesoría legal institucional.">
+          División<br>Fiscalía
+        </button>
+
+        <button class="node cyan small"
+          style="left:170px; top:225px; width:125px; height:58px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Cumplimiento Normativo, Transparencia e Integridad"
+          data-info="Apoya el cumplimiento regulatorio, la transparencia, la probidad y los estándares institucionales de integridad.">
+          Unidad de Cumplimiento<br>Normativo, Transparencia<br>e Integridad
+        </button>
+
+        <button class="node cyan small"
+          style="left:170px; top:292px; width:125px; height:58px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Contratación Pública y Coordinación Administrativa Interna"
+          data-info="Gestiona procesos de contratación pública y coordina tareas administrativas internas de apoyo a la división.">
+          Unidad de Contratación<br>Pública y Coordinación<br>Administrativa Interna
+        </button>
+
+        <button class="node white main"
+          style="left:705px; top:230px; width:165px; height:58px;"
+          data-type="Área de articulación"
+          data-title="Gabinete"
+          data-info="Coordina la agenda estratégica, el seguimiento de compromisos, la relación con otras áreas y el apoyo directo a la autoridad.">
+          Gabinete
+        </button>
+
+        <button class="node cyan small"
+          style="left:1060px; top:183px; width:125px; height:44px;"
+          data-type="Área de asesoría"
+          data-title="Asesores"
+          data-info="Equipo de apoyo especializado que asiste a la autoridad y al gabinete en materias técnicas, estratégicas y de gestión.">
+          Asesores
+        </button>
+
+        <button class="node cyan small"
+          style="left:1060px; top:240px; width:125px; height:44px;"
+          data-type="Área de asesoría"
+          data-title="Unidad de Prensa y Comunicaciones"
+          data-info="Gestiona comunicaciones institucionales, prensa, difusión de contenidos y apoyo comunicacional de la subsecretaría.">
+          Unidad de Prensa y<br>Comunicaciones
+        </button>
+
+        <button class="node cyan small"
+          style="left:1060px; top:298px; width:125px; height:44px;"
+          data-type="Área de asesoría"
+          data-title="Unidad de Participación Ciudadana y Género"
+          data-info="Desarrolla acciones vinculadas a participación ciudadana, enfoque de género y fortalecimiento de la relación con la ciudadanía.">
+          Unidad de Participación<br>Ciudadana y Género
+        </button>
+
+        <button class="node white main"
+          style="left:30px; top:545px; width:175px; height:78px;"
+          data-type="Área de negocio"
+          data-title="Dirección de Educación Previsional"
+          data-info="Lidera acciones, programas y contenidos orientados a la formación y difusión de materias previsionales hacia la ciudadanía.">
+          Dirección de<br>Educación<br>Previsional
+        </button>
+
+        <button class="node cyan small"
+          style="left:72px; top:678px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Educación Previsional"
+          data-info="Diseña e implementa actividades y materiales de educación previsional.">
+          Unidad de Educación<br>Previsional
+        </button>
+
+        <button class="node cyan small"
+          style="left:72px; top:733px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad Fondo para la Educación Previsional"
+          data-info="Gestiona iniciativas, procesos y apoyos asociados al Fondo para la Educación Previsional.">
+          Unidad Fondo para la<br>Educación Previsional
+        </button>
+
+        <button class="node white main"
+          style="left:225px; top:545px; width:175px; height:78px;"
+          data-type="Área de negocio"
+          data-title="Dirección de Estudios Previsionales"
+          data-info="Conduce estudios, análisis y generación de evidencia para apoyar la toma de decisiones en materias previsionales.">
+          Dirección de<br>Estudios Previsionales
+        </button>
+
+        <button class="node cyan small"
+          style="left:267px; top:678px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Observatorio Previsional"
+          data-info="Monitorea información, indicadores y tendencias relevantes para el sistema previsional.">
+          Unidad de Observatorio<br>Previsional
+        </button>
+
+        <button class="node cyan small"
+          style="left:267px; top:733px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Análisis de Políticas Previsionales"
+          data-info="Analiza políticas públicas previsionales y apoya la evaluación técnica de propuestas e iniciativas.">
+          Unidad de Análisis de<br>Políticas Previsionales
+        </button>
+
+        <button class="node white main"
+          style="left:405px; top:545px; width:175px; height:78px;"
+          data-type="Área de negocio"
+          data-title="Dirección de Coordinación Institucional"
+          data-info="Articula procesos de coordinación interna y externa para asegurar continuidad operativa y vinculación con actores relevantes.">
+          Dirección de<br>Coordinación<br>Institucional
+        </button>
+
+        <button class="node cyan small"
+          style="left:462px; top:678px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Atención Ciudadana y OIRS"
+          data-info="Gestiona la atención ciudadana, requerimientos, consultas y canales OIRS.">
+          Unidad de Atención<br>Ciudadana y OIRS
+        </button>
+
+        <button class="node cyan small"
+          style="left:462px; top:733px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Coordinación y Seguimiento Legislativo"
+          data-info="Apoya la coordinación normativa y el seguimiento legislativo de iniciativas relevantes para la subsecretaría.">
+          Unidad de Coordinación<br>y Seguimiento Legislativo
+        </button>
+
+        <button class="node white main"
+          style="left:590px; top:545px; width:190px; height:78px;"
+          data-type="Área de negocio"
+          data-title="División de Asesoría Legislativa y Seguridad Laboral"
+          data-info="Apoya materias legislativas, convenios internacionales y lineamientos vinculados a seguridad y salud laboral.">
+          División de Asesoría<br>Legislativa y<br>Seguridad Laboral
+        </button>
+
+        <button class="node cyan small"
+          style="left:642px; top:668px; width:135px; height:48px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Asesoría Legislativa y Convenios Internacionales"
+          data-info="Entrega apoyo técnico-legislativo y seguimiento de convenios internacionales relacionados con el sector.">
+          Unidad de Asesoría<br>Legislativa y Convenios<br>Internacionales
+        </button>
+
+        <button class="node cyan small"
+          style="left:642px; top:727px; width:135px; height:44px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Seguridad y Salud Laboral"
+          data-info="Aborda materias técnicas vinculadas a seguridad y salud laboral, incluyendo seguimiento de lineamientos y políticas.">
+          Unidad de Seguridad<br>y Salud Laboral
+        </button>
+
+        <button class="node white main"
+          style="left:1000px; top:545px; width:180px; height:76px;"
+          data-type="Área de soporte"
+          data-title="Dirección de Administración y Finanzas"
+          data-info="Administra recursos financieros, personas, adquisiciones, servicios generales y control de gestión institucional.">
+          Dirección de<br>Administración y<br>Finanzas
+        </button>
+
+        <button class="node cyan small"
+          style="left:790px; top:680px; width:135px; height:52px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Presupuesto, Finanzas y Control Sectorial"
+          data-info="Gestiona presupuesto, ejecución financiera y seguimiento sectorial.">
+          Unidad de Presupuesto,<br>Finanzas y Control<br>Sectorial
+        </button>
+
+        <button class="node cyan small"
+          style="left:960px; top:680px; width:135px; height:52px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Gestión y Desarrollo de Personas"
+          data-info="Gestiona los procesos de personas, desarrollo organizacional y apoyo administrativo al ciclo de vida laboral.">
+          Unidad de Gestión y<br>Desarrollo de Personas
+        </button>
+
+        <button class="node cyan small"
+          style="left:1100px; top:680px; width:135px; height:52px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Adquisiciones y Servicios Generales"
+          data-info="Administra adquisiciones, abastecimiento y servicios generales para el funcionamiento institucional.">
+          Unidad de Adquisiciones<br>y Servicios Generales
+        </button>
+
+        <button class="node cyan small"
+          style="left:1240px; top:680px; width:135px; height:52px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Control de Gestión"
+          data-info="Hace seguimiento a metas, indicadores y compromisos de gestión institucional.">
+          Unidad de Control<br>de Gestión
+        </button>
+
+        <button class="node cyan small"
+          style="left:830px; top:800px; width:120px; height:46px;"
+          data-type="Subunidad"
+          data-title="Subunidad de Gestión Financiera"
+          data-info="Apoya la ejecución presupuestaria, seguimiento financiero y administración de recursos.">
+          Subunidad de<br>Gestión Financiera
+        </button>
+
+        <button class="node cyan small"
+          style="left:830px; top:855px; width:120px; height:46px;"
+          data-type="Subunidad"
+          data-title="Subunidad de Tesorería"
+          data-info="Gestiona pagos, conciliaciones y procesos asociados al movimiento financiero institucional.">
+          Subunidad de<br>Tesorería
+        </button>
+
+        <button class="node cyan small"
+          style="left:1185px; top:790px; width:120px; height:44px;"
+          data-type="Subunidad"
+          data-title="Oficina de Partes"
+          data-info="Administra ingreso, distribución y registro formal de documentación institucional.">
+          Oficina de<br>Partes
+        </button>
+
+        <button class="node white main"
+          style="left:1390px; top:545px; width:180px; height:78px;"
+          data-type="Área de soporte"
+          data-title="Dirección de Tecnología de la Información"
+          data-info="Conduce la estrategia tecnológica institucional, sistemas, infraestructura y administración de plataformas digitales.">
+          Dirección de<br>Tecnología de la<br>Información
+        </button>
+
+        <button class="node cyan small"
+          style="left:1405px; top:690px; width:135px; height:46px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Sistemas e Inteligencia de Negocios"
+          data-info="Desarrolla y mantiene sistemas, reportabilidad y herramientas de inteligencia de negocios.">
+          Unidad de Sistemas<br>e Inteligencia de<br>Negocios
+        </button>
+
+        <button class="node cyan small"
+          style="left:1405px; top:745px; width:135px; height:46px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Infraestructura, Soporte y Seguridad de la Información"
+          data-info="Gestiona infraestructura tecnológica, soporte técnico y seguridad de la información.">
+          Unidad de<br>Infraestructura, Soporte<br>y Seguridad de la<br>Información
+        </button>
+
+        <button class="node cyan small"
+          style="left:1405px; top:800px; width:135px; height:52px;"
+          data-type="Unidad dependiente"
+          data-title="Unidad de Administración de Tecnologías de la Información"
+          data-info="Administra plataformas TI, continuidad operativa, configuración y soporte de servicios tecnológicos.">
+          Unidad de<br>Administración de<br>Tecnologías de la<br>Información
+        </button>
+
+      </div>
+
+      <div class="footer-band">
+        <div>CHILE AVANZA CONTIGO</div>
+        <div class="footer-center"></div>
+        <div>GOBIERNO DE CHILE</div>
+      </div>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+      <div class="type" id="infoType">Autoridad superior</div>
+      <h2 id="infoTitle">SUBSECRETARIO/A</h2>
+      <p id="infoText">
+        Cargo superior de la estructura institucional. Desde aquí se articula la conducción estratégica,
+        el relacionamiento interno y la coordinación general de las áreas de control, asesoría, negocio y soporte.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const nodes = document.querySelectorAll('.node');
+    const infoType = document.getElementById('infoType');
+    const infoTitle = document.getElementById('infoTitle');
+    const infoText = document.getElementById('infoText');
+
+    nodes.forEach(node => {
+      node.addEventListener('click', () => {
+        nodes.forEach(n => n.classList.remove('active'));
+        node.classList.add('active');
+
+        infoType.textContent = node.dataset.type || '';
+        infoTitle.textContent = node.dataset.title || '';
+        infoText.textContent = node.dataset.info || '';
+
+        document.getElementById('infoPanel').scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest'
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
