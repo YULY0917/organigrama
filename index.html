@@ -80,7 +80,7 @@
   height:100%;
   pointer-events:none;
   z-index:1;
-  shape-rendering:crispEdges;
+  shape-rendering:geometricPrecision;
 }
 
 .board svg.lines line{
@@ -329,68 +329,88 @@
 
   <!-- LÍNEAS -->
   <svg class="lines" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-    <line x1="800" y1="120" x2="800" y2="220" stroke="#fff" stroke-width="10"/>
-    <line x1="800" y1="235" x2="800" y2="330" stroke="#fff" stroke-width="10"/>
 
-    <line x1="620" y1="170" x2="620" y2="100" stroke="#fff" stroke-width="10"/>
-    <line x1="620" y1="100" x2="650" y2="100" stroke="#fff" stroke-width="10"/>
-    <line x1="620" y1="180" x2="565" y2="180" stroke="#fff" stroke-width="10"/>
-    <line x1="565" y1="180" x2="565" y2="280" stroke="#fff" stroke-width="10"/>
-    <line x1="565" y1="280" x2="300" y2="280" stroke="#fff" stroke-width="10"/>
-    <line x1="565" y1="240" x2="710" y2="240" stroke="#fff" stroke-width="10"/>
+  <!-- SUBSECRETARIA -->
+  <line x1="785" y1="136" x2="785" y2="220" />
+  <line x1="788" y1="288" x2="788" y2="505" />
 
-    <line x1="910" y1="245" x2="1015" y2="245" stroke="#fff" stroke-width="4"/>
-    <line x1="1015" y1="195" x2="1015" y2="315" stroke="#fff" stroke-width="4"/>
-    <line x1="1015" y1="195" x2="1055" y2="195" stroke="#fff" stroke-width="4"/>
-    <line x1="1015" y1="245" x2="1055" y2="245" stroke="#fff" stroke-width="4"/>
-    <line x1="1015" y1="305" x2="1055" y2="305" stroke="#fff" stroke-width="4"/>
+  <!-- ÁREAS DE CONTROL -->
+  <!-- desde Subsecretaria hacia Auditoría -->
+  <line x1="655" y1="100" x2="620" y2="100" />
+  <line x1="620" y1="100" x2="620" y2="179" />
+  <line x1="620" y1="179" x2="565" y2="179" />
 
-    <line x1="800" y1="330" x2="800" y2="505" stroke="#fff" stroke-width="4"/>
-    <line x1="120" y1="505" x2="1365" y2="505" stroke="#fff" stroke-width="4"/>
+  <!-- División Fiscalía hacia Gabinete -->
+  <line x1="565" y1="259" x2="705" y2="259" />
 
-    <line x1="235" y1="505" x2="235" y2="540" stroke="#fff" stroke-width="4"/>
-    <line x1="430" y1="505" x2="430" y2="540" stroke="#fff" stroke-width="4"/>
-    <line x1="610" y1="505" x2="610" y2="540" stroke="#fff" stroke-width="4"/>
-    <line x1="795" y1="505" x2="795" y2="540" stroke="#fff" stroke-width="4"/>
-    <line x1="1090" y1="505" x2="1090" y2="540" stroke="#fff" stroke-width="4"/>
-    <line x1="1370" y1="505" x2="1370" y2="540" stroke="#fff" stroke-width="4"/>
+  <!-- bracket de Fiscalía a sus dos unidades -->
+  <line x1="400" y1="279" x2="345" y2="279" />
+  <line x1="345" y1="249" x2="345" y2="326" />
+  <line x1="295" y1="249" x2="345" y2="249" />
+  <line x1="295" y1="316" x2="345" y2="316" />
 
-    <line x1="40" y1="625" x2="40" y2="760" stroke="#fff" stroke-width="4"/>
-    <line x1="40" y1="705" x2="70" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="40" y1="760" x2="70" y2="760" stroke="#fff" stroke-width="4"/>
+  <!-- ÁREAS DE ASESORÍA -->
+  <line x1="870" y1="264" x2="1015" y2="264" />
+  <line x1="1015" y1="207" x2="1015" y2="307" />
+  <line x1="1015" y1="207" x2="1060" y2="207" />
+  <line x1="1015" y1="264" x2="1060" y2="264" />
+  <line x1="1015" y1="321" x2="1060" y2="321" />
 
-    <line x1="235" y1="625" x2="235" y2="760" stroke="#fff" stroke-width="4"/>
-    <line x1="235" y1="705" x2="265" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="235" y1="760" x2="265" y2="760" stroke="#fff" stroke-width="4"/>
+  <!-- TRONCAL PRINCIPAL -->
+  <line x1="130" y1="505" x2="1450" y2="505" />
 
-    <line x1="430" y1="625" x2="430" y2="760" stroke="#fff" stroke-width="4"/>
-    <line x1="430" y1="705" x2="460" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="430" y1="760" x2="460" y2="760" stroke="#fff" stroke-width="4"/>
+  <!-- BAJADAS DESDE TRONCAL A DIRECCIONES -->
+  <line x1="118" y1="505" x2="118" y2="545" />
+  <line x1="313" y1="505" x2="313" y2="545" />
+  <line x1="493" y1="505" x2="493" y2="545" />
+  <line x1="685" y1="505" x2="685" y2="545" />
+  <line x1="1090" y1="505" x2="1090" y2="545" />
+  <line x1="1480" y1="505" x2="1480" y2="545" />
 
-    <line x1="610" y1="625" x2="610" y2="760" stroke="#fff" stroke-width="4"/>
-    <line x1="610" y1="705" x2="640" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="610" y1="760" x2="640" y2="760" stroke="#fff" stroke-width="4"/>
+  <!-- DIRECCIÓN DE EDUCACIÓN PREVISIONAL -->
+  <line x1="50" y1="623" x2="50" y2="760" />
+  <line x1="50" y1="706" x2="72" y2="706" />
+  <line x1="50" y1="755" x2="72" y2="755" />
 
-    <line x1="1090" y1="625" x2="1090" y2="660" stroke="#fff" stroke-width="4"/>
-    <line x1="860" y1="660" x2="1260" y2="660" stroke="#fff" stroke-width="4"/>
-    <line x1="880" y1="660" x2="880" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="1030" y1="660" x2="1030" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="1165" y1="660" x2="1165" y2="705" stroke="#fff" stroke-width="4"/>
-    <line x1="1305" y1="660" x2="1305" y2="705" stroke="#fff" stroke-width="4"/>
+  <!-- DIRECCIÓN DE ESTUDIOS PREVISIONALES -->
+  <line x1="245" y1="623" x2="245" y2="760" />
+  <line x1="245" y1="706" x2="267" y2="706" />
+  <line x1="245" y1="755" x2="267" y2="755" />
 
-    <line x1="880" y1="760" x2="880" y2="855" stroke="#fff" stroke-width="4"/>
-    <line x1="880" y1="760" x2="920" y2="760" stroke="#fff" stroke-width="4"/>
-    <line x1="880" y1="855" x2="920" y2="855" stroke="#fff" stroke-width="4"/>
+  <!-- DIRECCIÓN DE COORDINACIÓN INSTITUCIONAL -->
+  <line x1="435" y1="623" x2="435" y2="760" />
+  <line x1="435" y1="706" x2="462" y2="706" />
+  <line x1="435" y1="755" x2="462" y2="755" />
 
-    <line x1="1165" y1="760" x2="1165" y2="815" stroke="#fff" stroke-width="4"/>
-    <line x1="1165" y1="815" x2="1185" y2="815" stroke="#fff" stroke-width="4"/>
+  <!-- DIVISIÓN DE ASESORÍA LEGISLATIVA Y SEGURIDAD LABORAL -->
+  <line x1="635" y1="623" x2="635" y2="760" />
+  <line x1="635" y1="700" x2="642" y2="700" />
+  <line x1="635" y1="749" x2="642" y2="749" />
 
-    <line x1="1370" y1="625" x2="1370" y2="800" stroke="#fff" stroke-width="4"/>
-    <line x1="1370" y1="715" x2="1400" y2="715" stroke="#fff" stroke-width="4"/>
-    <line x1="1370" y1="770" x2="1400" y2="770" stroke="#fff" stroke-width="4"/>
-    <line x1="1370" y1="825" x2="1400" y2="825" stroke="#fff" stroke-width="4"/>
-  </svg>
+  <!-- DIRECCIÓN DE ADMINISTRACIÓN Y FINANZAS -->
+  <line x1="1090" y1="621" x2="1090" y2="660" />
+  <line x1="860" y1="660" x2="1340" y2="660" />
+  <line x1="858" y1="660" x2="858" y2="680" />
+  <line x1="1028" y1="660" x2="1028" y2="680" />
+  <line x1="1168" y1="660" x2="1168" y2="680" />
+  <line x1="1308" y1="660" x2="1308" y2="680" />
 
+  <!-- Subunidades Presupuesto -->
+  <line x1="858" y1="732" x2="858" y2="852" />
+  <line x1="858" y1="778" x2="920" y2="778" />
+  <line x1="858" y1="842" x2="920" y2="842" />
+
+  <!-- Oficina de Partes -->
+  <line x1="1168" y1="732" x2="1168" y2="815" />
+  <line x1="1168" y1="815" x2="1185" y2="815" />
+
+  <!-- DIRECCIÓN DE TECNOLOGÍA DE LA INFORMACIÓN -->
+  <line x1="1450" y1="623" x2="1450" y2="800" />
+  <line x1="1450" y1="704" x2="1405" y2="704" />
+  <line x1="1450" y1="759" x2="1405" y2="759" />
+  <line x1="1450" y1="819" x2="1405" y2="819" />
+</svg>
+       
         <!-- NODOS -->
         <button class="node white big"
           style="left:655px; top:62px; width:260px; height:74px;"
