@@ -73,13 +73,13 @@
       background:var(--bg);
     }
 
-    .board svg.lines{
+   .board svg.lines{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:1;
+  z-index:2;
   shape-rendering:geometricPrecision;
 }
 
@@ -88,6 +88,10 @@
   stroke-width:4;
   stroke-linecap:square;
   vector-effect:non-scaling-stroke;
+}
+
+.node{
+  z-index:4;
 }
      .section-title{
       position:absolute;
@@ -329,11 +333,11 @@
   <!-- LÍNEAS -->
   <svg class="lines" viewBox="0 0 1600 920" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
 
-  <!-- SUBSECRETARIA / GABINETE -->
-  <line x1="785" y1="136" x2="785" y2="230"/>
+  <!-- SUBSECRETARIA -->
+  <line x1="785" y1="136" x2="785" y2="220"/>
   <line x1="785" y1="288" x2="785" y2="505"/>
 
-  <!-- ÁREAS DE CONTROL -->
+  <!-- CONTROL -->
   <line x1="655" y1="99" x2="620" y2="99"/>
   <line x1="620" y1="99" x2="620" y2="179"/>
   <line x1="620" y1="179" x2="565" y2="179"/>
@@ -347,7 +351,7 @@
   <line x1="360" y1="254" x2="360" y2="321"/>
   <line x1="360" y1="259" x2="400" y2="259"/>
 
-  <!-- ÁREAS DE ASESORÍA -->
+  <!-- ASESORÍA -->
   <line x1="870" y1="259" x2="1030" y2="259"/>
   <line x1="1030" y1="205" x2="1030" y2="320"/>
   <line x1="1030" y1="205" x2="1060" y2="205"/>
@@ -355,58 +359,58 @@
   <line x1="1030" y1="320" x2="1060" y2="320"/>
 
   <!-- TRONCAL PRINCIPAL INFERIOR -->
-  <line x1="110" y1="505" x2="1500" y2="505"/>
+  <line x1="100" y1="505" x2="1495" y2="505"/>
 
   <!-- BAJADAS A CAJAS BLANCAS -->
-  <line x1="112" y1="505" x2="112" y2="545"/>
-  <line x1="307" y1="505" x2="307" y2="545"/>
-  <line x1="487" y1="505" x2="487" y2="545"/>
-  <line x1="680" y1="505" x2="680" y2="545"/>
+  <line x1="110" y1="505" x2="110" y2="545"/>
+  <line x1="305" y1="505" x2="305" y2="545"/>
+  <line x1="485" y1="505" x2="485" y2="545"/>
+  <line x1="675" y1="505" x2="675" y2="545"/>
   <line x1="1090" y1="505" x2="1090" y2="545"/>
   <line x1="1480" y1="505" x2="1480" y2="545"/>
 
   <!-- DIRECCIÓN DE EDUCACIÓN PREVISIONAL -->
-  <line x1="42" y1="623" x2="42" y2="780"/>
-  <line x1="42" y1="705" x2="66" y2="705"/>
-  <line x1="42" y1="760" x2="66" y2="760"/>
+  <line x1="32" y1="623" x2="32" y2="780"/>
+  <line x1="32" y1="705" x2="60" y2="705"/>
+  <line x1="32" y1="760" x2="60" y2="760"/>
 
   <!-- DIRECCIÓN DE ESTUDIOS PREVISIONALES -->
-  <line x1="237" y1="623" x2="237" y2="780"/>
-  <line x1="237" y1="705" x2="261" y2="705"/>
-  <line x1="237" y1="760" x2="261" y2="760"/>
+  <line x1="227" y1="623" x2="227" y2="780"/>
+  <line x1="227" y1="705" x2="255" y2="705"/>
+  <line x1="227" y1="760" x2="255" y2="760"/>
 
   <!-- DIRECCIÓN DE COORDINACIÓN INSTITUCIONAL -->
-  <line x1="437" y1="623" x2="437" y2="780"/>
-  <line x1="437" y1="705" x2="461" y2="705"/>
-  <line x1="437" y1="760" x2="461" y2="760"/>
+  <line x1="427" y1="623" x2="427" y2="780"/>
+  <line x1="427" y1="705" x2="450" y2="705"/>
+  <line x1="427" y1="760" x2="450" y2="760"/>
 
   <!-- DIVISIÓN DE ASESORÍA LEGISLATIVA Y SEGURIDAD LABORAL -->
-  <line x1="637" y1="623" x2="637" y2="780"/>
-  <line x1="637" y1="692" x2="642" y2="692"/>
-  <line x1="637" y1="751" x2="642" y2="751"/>
+  <line x1="627" y1="623" x2="627" y2="780"/>
+  <line x1="627" y1="692" x2="632" y2="692"/>
+  <line x1="627" y1="751" x2="632" y2="751"/>
 
   <!-- DIRECCIÓN DE ADMINISTRACIÓN Y FINANZAS -->
-  <line x1="1090" y1="621" x2="1090" y2="660"/>
-  <line x1="860" y1="660" x2="1308" y2="660"/>
-  <line x1="857.5" y1="660" x2="857.5" y2="680"/>
-  <line x1="1027.5" y1="660" x2="1027.5" y2="680"/>
-  <line x1="1167.5" y1="660" x2="1167.5" y2="680"/>
-  <line x1="1307.5" y1="660" x2="1307.5" y2="680"/>
+  <line x1="1090" y1="621" x2="1090" y2="650"/>
+  <line x1="860" y1="650" x2="1320" y2="650"/>
+  <line x1="860" y1="650" x2="860" y2="680"/>
+  <line x1="1030" y1="650" x2="1030" y2="680"/>
+  <line x1="1170" y1="650" x2="1170" y2="680"/>
+  <line x1="1310" y1="650" x2="1310" y2="680"/>
 
   <!-- SUBUNIDADES DE PRESUPUESTO -->
-  <line x1="857.5" y1="732" x2="857.5" y2="878"/>
-  <line x1="857.5" y1="780" x2="920" y2="780"/>
-  <line x1="857.5" y1="878" x2="920" y2="878"/>
+  <line x1="860" y1="732" x2="860" y2="878"/>
+  <line x1="860" y1="790" x2="900" y2="790"/>
+  <line x1="860" y1="878" x2="900" y2="878"/>
 
   <!-- OFICINA DE PARTES -->
-  <line x1="1167.5" y1="732" x2="1167.5" y2="812"/>
-  <line x1="1167.5" y1="812" x2="1185" y2="812"/>
+  <line x1="1170" y1="732" x2="1170" y2="815"/>
+  <line x1="1170" y1="815" x2="1185" y2="815"/>
 
   <!-- DIRECCIÓN DE TECNOLOGÍA DE LA INFORMACIÓN -->
-  <line x1="1480" y1="623" x2="1480" y2="826"/>
-  <line x1="1480" y1="713" x2="1405" y2="713"/>
-  <line x1="1480" y1="770" x2="1405" y2="770"/>
-  <line x1="1480" y1="826" x2="1405" y2="826"/>
+  <line x1="1480" y1="623" x2="1480" y2="845"/>
+  <line x1="1480" y1="720" x2="1405" y2="720"/>
+  <line x1="1480" y1="778" x2="1405" y2="778"/>
+  <line x1="1480" y1="835" x2="1405" y2="835"/>
 
 </svg>
        
